@@ -1,4 +1,5 @@
 using Autofac;
+using Core;
 using Client.Services;
 
 namespace Client
@@ -7,7 +8,12 @@ namespace Client
     {
         protected override void Load(ContainerBuilder builder)
         {
-            _ = builder.Register(c => new ClientTestService()).As<IClientTestService>().SingleInstance();
+            _ = builder.RegisterModule<CoreModule>();
+
+            _ = builder.RegisterType<DirectorService>().As<IDirectorService>().SingleInstance();
+
+            _ = builder.RegisterType<ClientTestService>().As<IClientTestService>().SingleInstance();
+
         }
     }
 }
